@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { Text, TouchableOpacity } from 'react-native';
 
 import HomeScreen from './screens/HomeScreen';
 import TaskFormScreen from './screens/TaskFormScreen';
@@ -8,11 +9,33 @@ import TaskFormScreen from './screens/TaskFormScreen';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  return(
+  return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name='HomeScreen' component={HomeScreen} />
-        <Stack.Screen name='TaskFormScreen' component={TaskFormScreen} />
+
+        <Stack.Screen name='HomeScreen' component={HomeScreen}
+          options={({navigation}) =>({
+            title:"Task App",
+            headerStyle: { backgroundColor: '#222f3e' },
+            headerTitleStyle: { color: '#ffffff' },
+            headerRight: () =>(
+              <TouchableOpacity onPress={() => navigation.navigate("TaskFormScreen")}>
+                <Text style={{color: '#ffffff',  marginRight:20 , fontSize:15}}>New</Text>
+              </TouchableOpacity>
+            )
+          })}
+        />
+
+        <Stack.Screen name='TaskFormScreen' component={TaskFormScreen} 
+        options={{
+          title:'Create a Task',
+          headerStyle: { backgroundColor: '#222f3e' },
+          headerTitleStyle: { color: '#ffffff' },
+          headerTintColor: '#ffffff'
+        }}
+
+        />
+        
       </Stack.Navigator>
     </NavigationContainer>
   )
